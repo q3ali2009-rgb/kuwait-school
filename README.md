@@ -6,12 +6,17 @@
 <title>المناهج الكويتية</title>
 
 <style>
-body{
-    margin:0;
-    font-family: 'Tahoma', sans-serif;
-    background:#f4f6f9;
+*{
+    box-sizing:border-box;
 }
 
+body{
+    margin:0;
+    font-family:Tahoma, Arial, sans-serif;
+    background:#f2f4f8;
+}
+
+/* الهيدر */
 header{
     background:#006c35;
     color:white;
@@ -20,17 +25,18 @@ header{
     font-size:22px;
 }
 
-.container{
+/* التخطيط */
+.wrapper{
     display:flex;
 }
 
 /* القائمة الجانبية */
 .sidebar{
-    width:250px;
+    width:260px;
     background:#014421;
+    color:white;
     min-height:100vh;
     padding:20px;
-    color:white;
 }
 
 .sidebar h3{
@@ -44,14 +50,15 @@ header{
     padding:0;
 }
 
-.sidebar ul li{
-    padding:10px 0;
+.sidebar li{
+    padding:12px;
     cursor:pointer;
+    border-radius:6px;
+    margin-bottom:5px;
 }
 
-.sidebar ul li:hover{
+.sidebar li:hover{
     background:#006c35;
-    padding-right:10px;
 }
 
 /* المحتوى */
@@ -63,9 +70,9 @@ header{
 .card{
     background:white;
     padding:20px;
-    margin-bottom:20px;
-    border-radius:10px;
+    border-radius:12px;
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom:20px;
 }
 
 .welcome{
@@ -79,8 +86,9 @@ button{
     color:white;
     border:none;
     padding:10px 15px;
-    border-radius:5px;
+    border-radius:6px;
     cursor:pointer;
+    font-size:14px;
 }
 
 button:hover{
@@ -92,20 +100,20 @@ button:hover{
 <body>
 
 <header>
-📚 موقع المناهج الكويتية - الكتب الجديدة 2025/2026
+📚 موقع المناهج الكويتية - الكتب الجديدة 2025 / 2026
 </header>
 
-<div class="container">
+<div class="wrapper">
 
-<!-- القائمة -->
+<!-- القائمة الجانبية -->
 <div class="sidebar">
     <h3>القائمة الرئيسية</h3>
     <ul>
-        <li onclick="showSection('primary')">المرحلة الابتدائية</li>
-        <li onclick="showSection('middle')">المرحلة المتوسطة</li>
-        <li onclick="showSection('secondary')">المرحلة الثانوية</li>
-        <li onclick="showSection('banks')">بنوك الأسئلة</li>
-        <li onclick="showSection('books')">الكتب الجديدة</li>
+        <li onclick="showContent('primary')">المرحلة الابتدائية</li>
+        <li onclick="showContent('middle')">المرحلة المتوسطة</li>
+        <li onclick="showContent('secondary')">المرحلة الثانوية</li>
+        <li onclick="showContent('banks')">بنوك الأسئلة</li>
+        <li onclick="showContent('books')">الكتب الجديدة</li>
     </ul>
 </div>
 
@@ -113,15 +121,15 @@ button:hover{
 <div class="content">
 
 <div class="welcome">
-👋 أهلاً وسهلاً بك في موقع المناهج الكويتية الرسمي غير التابع للوزارة  
+👋 أهلاً وسهلاً بك في موقع المناهج الكويتية  
 نتمنى لك التوفيق والنجاح 🌟
 </div>
 
-<div id="sectionContent">
+<div id="mainContent">
 
 <div class="card">
-<h2>اختر من القائمة لعرض المحتوى</h2>
-<p>جميع الكتب المعروضة هي النسخ الجديدة المحدثة للعام الدراسي 2025 / 2026</p>
+<h2>اختر قسم من القائمة لعرض المحتوى</h2>
+<p>جميع الكتب المعروضة هي النسخ الجديدة المحدثة لعام 2025 / 2026</p>
 </div>
 
 </div>
@@ -131,52 +139,52 @@ button:hover{
 
 <script>
 
-function showSection(section){
+function showContent(section){
 
-let content = document.getElementById("sectionContent");
+var box = document.getElementById("mainContent");
 
 if(section === "primary"){
-content.innerHTML = `
+box.innerHTML = `
 <div class="card">
 <h2>📘 المرحلة الابتدائية</h2>
 <p>الصف الأول - الثاني - الثالث - الرابع - الخامس</p>
-<button>عرض الكتب الجديدة</button>
+<button onclick="alert('سيتم إضافة روابط الكتب قريباً')">عرض الكتب الجديدة</button>
 </div>`;
 }
 
-if(section === "middle"){
-content.innerHTML = `
+else if(section === "middle"){
+box.innerHTML = `
 <div class="card">
 <h2>📗 المرحلة المتوسطة</h2>
 <p>الصف السادس - السابع - الثامن - التاسع</p>
-<button>عرض الكتب الجديدة</button>
+<button onclick="alert('سيتم إضافة روابط الكتب قريباً')">عرض الكتب الجديدة</button>
 </div>`;
 }
 
-if(section === "secondary"){
-content.innerHTML = `
+else if(section === "secondary"){
+box.innerHTML = `
 <div class="card">
 <h2>📕 المرحلة الثانوية</h2>
 <p>الصف العاشر - الحادي عشر - الثاني عشر</p>
-<button>عرض الكتب الجديدة</button>
+<button onclick="alert('سيتم إضافة روابط الكتب قريباً')">عرض الكتب الجديدة</button>
 </div>`;
 }
 
-if(section === "banks"){
-content.innerHTML = `
+else if(section === "banks"){
+box.innerHTML = `
 <div class="card">
 <h2>📝 بنوك الأسئلة</h2>
 <p>نماذج اختبارات + مراجعات نهائية + أسئلة محلولة</p>
-<button>تحميل بنك الأسئلة</button>
+<button onclick="alert('سيتم إضافة بنوك الأسئلة قريباً')">تحميل بنك الأسئلة</button>
 </div>`;
 }
 
-if(section === "books"){
-content.innerHTML = `
+else if(section === "books"){
+box.innerHTML = `
 <div class="card">
-<h2>📚 الكتب التعليمية الجديدة 2025-2026</h2>
-<p>جميع الكتب بصيغة PDF ومحدثة حسب المنهج الكويتي الجديد</p>
-<button>تحميل الكتب</button>
+<h2>📚 الكتب التعليمية الجديدة 2025 - 2026</h2>
+<p>كتب محدثة حسب المنهج الكويتي الجديد بصيغة PDF</p>
+<button onclick="alert('سيتم إضافة روابط التحميل قريباً')">تحميل الكتب</button>
 </div>`;
 }
 

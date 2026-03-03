@@ -1,229 +1,139 @@
-<!DOCTYPE html>
+حياكمم
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة المناهج الكويتية</title>
     <style>
-        :root {
-            --primary: #00796b;
-            --secondary: #26a69a;
-            --dark: #004d40;
-            --light: #f4f7f6;
-        }
+        :root { --primary: #00796b; --dark: #004d40; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* الهيدر والقائمة الجانبية */
+        header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; right: 0; background: var(--dark); overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; color: #ccc; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar a:hover { background: var(--primary); color: white; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        /* القائمة الجانبية (الثلاث نقاط) */
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 2000;
-            top: 0;
-            right: 0;
-            background-color: var(--dark);
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-
-        .sidebar a {
-            padding: 15px 32px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .sidebar a:hover { color: #f1f1f1; }
-
-        .sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            left: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-
-        /* الهيدر */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .menu-icon { font-size: 30px; cursor: pointer; }
-
-        /* حاويات الشاشات */
-        .screen {
-            display: none;
-            padding: 20px;
-            text-align: center;
-            animation: fadeIn 0.4s;
-        }
-
+        /* الشاشات */
+        .screen { display: none; padding: 20px; text-align: center; }
         .active-screen { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .welcome-card {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-top: 50px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 15px;
-            max-width: 800px;
-            margin: 20px auto;
-        }
-
-        .btn {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            border: 2px solid var(--primary);
-            color: var(--dark);
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
+        
+        .welcome-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; max-width: 800px; margin: 20px auto; }
+        
+        .btn { background: white; padding: 15px; border-radius: 12px; border: 2px solid var(--primary); font-weight: bold; cursor: pointer; transition: 0.3s; }
         .btn:hover { background: var(--primary); color: white; }
+        .btn-gold { background: #ffc107; border-color: #ffa000; }
 
-        .back-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 10px;
-            margin-top: 20px;
-            cursor: pointer;
-        }
-
-        .stage-title {
-            margin-top: 30px;
-            color: var(--dark);
-            border-bottom: 2px solid var(--primary);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 80vh;
-            border: none;
-            margin-top: 10px;
-        }
+        /* شاشة العرض الكاملة (للبقاء في الموقع) */
+        #viewer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000; display: none; flex-direction: column; }
+        .viewer-bar { background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        iframe { width: 100%; flex-grow: 1; border: none; }
+        
+        .back-btn { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        footer { background: #222; color: #999; text-align: center; padding: 15px; margin-top: auto; }
     </style>
 </head>
 <body>
 
 <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a href="#" onclick="showScreen('home')">الرئيسية</a>
-    <a href="#" onclick="showScreen('grades')">المراحل الدراسية</a>
-    <a href="https://moe.edu.kw" target="_blank">موقع الوزارة</a>
+    <a href="javascript:void(0)" style="font-size:30px" onclick="closeNav()">×</a>
+    <a href="#" onclick="showScreen('home')">🏠 الرئيسية</a>
+    <a href="#" onclick="showScreen('grades')">📚 المناهج الدراسية</a>
+    <a href="#" onclick="openExternal('https://www.kwedufiles.com/qbank', 'بنوك الأسئلة المحلولة')">📝 بنوك الأسئلة</a>
+    <a href="https://moe.edu.kw" target="_blank">🔗 موقع الوزارة</a>
 </div>
 
 <header>
-    <div></div> <h2>بوابة المناهج</h2>
-    <span class="menu-icon" onclick="openNav()">&#9776;</span>
+    <div style="width:40px"></div>
+    <h3>بوابة المناهج الكويتية</h3>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 </header>
 
 <div id="home" class="screen active-screen">
     <div class="welcome-card">
-        <h1>حياكم الله في موقعكم التعليمي 🇰🇼</h1>
-        <p>كل ما يحتاجه الطالب الكويتي في مكان واحد</p>
-        <button class="btn" style="background:var(--primary); color:white; width:200px;" onclick="showScreen('grades')">ابدأ التصفح</button>
+        <h1>حياكم الله بموقعكم 🇰🇼</h1>
+        <p>كل المناهج وبنوك الأسئلة بمكان واحد</p>
+        <button class="btn" style="background:var(--primary); color:white; width:200px" onclick="showScreen('grades')">دخول المكتبة</button>
     </div>
 </div>
 
 <div id="grades" class="screen">
-    <h3 class="stage-title">المرحلة الابتدائية</h3>
+    <h3 style="text-align:right">اختر المرحلة الدراسية:</h3>
     <div class="grid">
-        <button class="btn" onclick="showSemester('الصف الأول')">الأول</button>
-        <button class="btn" onclick="showSemester('الصف الثاني')">الثاني</button>
-        <button class="btn" onclick="showSemester('الصف الثالث')">الثالث</button>
-        <button class="btn" onclick="showSemester('الصف الرابع')">الرابع</button>
-        <button class="btn" onclick="showSemester('الصف الخامس')">الخامس</button>
+        <button class="btn" onclick="showSemester('الأول', '1')">1</button>
+        <button class="btn" onclick="showSemester('الثاني', '2')">2</button>
+        <button class="btn" onclick="showSemester('الثالث', '3')">3</button>
+        <button class="btn" onclick="showSemester('الرابع', '4')">4</button>
+        <button class="btn" onclick="showSemester('الخامس', '5')">5</button>
+        <button class="btn" onclick="showSemester('السادس', '6')">6</button>
+        <button class="btn" onclick="showSemester('السابع', '7')">7</button>
+        <button class="btn" onclick="showSemester('الثامن', '8')">8</button>
+        <button class="btn" onclick="showSemester('التاسع', '9')">9</button>
+        <button class="btn" onclick="showSemester('العاشر', '10')">10</button>
+        <button class="btn" onclick="showSemester('11', '11')">11</button>
+        <button class="btn" onclick="showSemester('12', '12')">12</button>
     </div>
-
-    <h3 class="stage-title">المرحلة المتوسطة</h3>
     <div class="grid">
-        <button class="btn" onclick="showSemester('الصف السادس')">السادس</button>
-        <button class="btn" onclick="showSemester('الصف السابع')">السابع</button>
-        <button class="btn" onclick="showSemester('الصف الثامن')">الثامن</button>
-        <button class="btn" onclick="showSemester('الصف التاسع')">التاسع</button>
+        <button class="btn btn-gold" onclick="openExternal('https://www.kwedufiles.com/qbank', 'بنوك الأسئلة المحلولة')">📝 بنوك الأسئلة المحلولة</button>
     </div>
-
-    <h3 class="stage-title">المرحلة الثانوية</h3>
-    <div class="grid">
-        <button class="btn" onclick="showSemester('الصف العاشر')">العاشر</button>
-        <button class="btn" onclick="showSemester('الصف 11')">11 (علمي/أدبي)</button>
-        <button class="btn" onclick="showSemester('الصف 12')">12 (علمي/أدبي)</button>
-    </div>
-    <button class="back-btn" onclick="showScreen('home')">رجوع</button>
 </div>
 
 <div id="semesters" class="screen">
-    <h2 id="selectedGrade"></h2>
+    <h2 id="gradeTitle"></h2>
     <div class="grid">
-        <button class="btn" onclick="viewContent('الفصل الأول')">الفصل الدراسي الأول</button>
-        <button class="btn" onclick="viewContent('الفصل الثاني')">الفصل الدراسي الثاني</button>
+        <button class="btn" onclick="openBook('1')">الفصل الأول</button>
+        <button class="btn" onclick="openBook('2')">الفصل الثاني</button>
     </div>
-    <button class="back-btn" onclick="showScreen('grades')">رجوع لاختيار الصف</button>
+    <button class="back-btn" onclick="showScreen('grades')">رجوع</button>
 </div>
 
-<div id="viewer" class="screen">
-    <h3 id="viewingTitle"></h3>
-    <iframe id="contentFrame" src=""></iframe>
-    <br>
-    <button class="back-btn" onclick="showScreen('semesters')">رجوع لاختيار الفصل</button>
+<div id="viewer">
+    <div class="viewer-bar">
+        <span id="viewTitle">جاري التحميل...</span>
+        <button class="back-btn" onclick="closeViewer()">❌ إغلاق والرجوع لموقعي</button>
+    </div>
+    <iframe id="mainFrame" src=""></iframe>
 </div>
+
+<footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 - بوابة المناهج الكويتية</p>
+</footer>
 
 <script>
-    let currentGrade = "";
+    let selID = "";
+    let selName = "";
 
     function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
     function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
 
-    function showScreen(screenId) {
-        // إخفاء جميع الشاشات
+    function showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
-        // إظهار الشاشة المطلوبة
-        document.getElementById(screenId).classList.add('active-screen');
+        document.getElementById(id).classList.add('active-screen');
         closeNav();
     }
 
-    function showSemester(gradeName) {
-        currentGrade = gradeName;
-        document.getElementById('selectedGrade').innerText = "اختر الفصل الدراسي لـ " + gradeName;
+    function showSemester(name, id) {
+        selID = id; selName = name;
+        document.getElementById('gradeTitle').innerText = "منهج الصف " + name;
         showScreen('semesters');
     }
 
-    function viewContent(semester) {
-        document.getElementById('viewingTitle').innerText = currentGrade + " - " + semester;
-        // هنا تضعين الروابط الفعلية مستقبلاً
-        document.getElementById('contentFrame').src = "https://moe.edu.kw"; 
-        showScreen('viewer');
+    function openBook(sem) {
+        let url = "https://www.kwedufiles.com/" + selID;
+        openExternal(url, "منهج " + selName + " - الفصل " + sem);
+    }
+
+    function openExternal(url, title) {
+        document.getElementById('viewTitle').innerText = title;
+        document.getElementById('mainFrame').src = url;
+        document.getElementById('viewer').style.display = "flex";
+        closeNav();
+    }
+
+    function closeViewer() {
+        document.getElementById('viewer').style.display = "none";
+        document.getElementById('mainFrame').src = "";
     }
 </script>
 

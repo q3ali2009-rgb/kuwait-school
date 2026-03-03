@@ -1,140 +1,187 @@
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المناهج الكويتية</title>
-    <style>
-        :root { --primary: #00796b; --dark: #004d40; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* الهيدر والقائمة الجانبية */
-        header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; right: 0; background: var(--dark); overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
-        .sidebar a { padding: 15px 25px; text-decoration: none; color: #ccc; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .sidebar a:hover { background: var(--primary); color: white; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المناهج الكويتية</title>
 
-        /* الشاشات */
-        .screen { display: none; padding: 20px; text-align: center; }
-        .active-screen { display: block; }
-        
-        .welcome-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; max-width: 800px; margin: 20px auto; }
-        
-        .btn { background: white; padding: 15px; border-radius: 12px; border: 2px solid var(--primary); font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: var(--primary); color: white; }
-        .btn-gold { background: #ffc107; border-color: #ffa000; }
+<style>
+body{
+    margin:0;
+    font-family: 'Tahoma', sans-serif;
+    background:#f4f6f9;
+}
 
-        /* شاشة العرض الكاملة (للبقاء في الموقع) */
-        #viewer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 3000; display: none; flex-direction: column; }
-        .viewer-bar { background: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-        iframe { width: 100%; flex-grow: 1; border: none; }
-        
-        .back-btn { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        footer { background: #222; color: #999; text-align: center; padding: 15px; margin-top: auto; }
-    </style>
+header{
+    background:#006c35;
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-size:22px;
+}
+
+.container{
+    display:flex;
+}
+
+/* القائمة الجانبية */
+.sidebar{
+    width:250px;
+    background:#014421;
+    min-height:100vh;
+    padding:20px;
+    color:white;
+}
+
+.sidebar h3{
+    margin-top:0;
+    border-bottom:1px solid #fff;
+    padding-bottom:10px;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+
+.sidebar ul li{
+    padding:10px 0;
+    cursor:pointer;
+}
+
+.sidebar ul li:hover{
+    background:#006c35;
+    padding-right:10px;
+}
+
+/* المحتوى */
+.content{
+    flex:1;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.welcome{
+    font-size:20px;
+    color:#006c35;
+    margin-bottom:20px;
+}
+
+button{
+    background:#006c35;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#014421;
+}
+</style>
 </head>
+
 <body>
 
-<div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" style="font-size:30px" onclick="closeNav()">×</a>
-    <a href="#" onclick="showScreen('home')">🏠 الرئيسية</a>
-    <a href="#" onclick="showScreen('grades')">📚 المناهج الدراسية</a>
-    <a href="#" onclick="openExternal('https://www.kwedufiles.com/qbank', 'بنوك الأسئلة المحلولة')">📝 بنوك الأسئلة</a>
-    <a href="https://moe.edu.kw" target="_blank">🔗 موقع الوزارة</a>
-</div>
-
 <header>
-    <div style="width:40px"></div>
-    <h3>بوابة المناهج الكويتية</h3>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+📚 موقع المناهج الكويتية - الكتب الجديدة 2025/2026
 </header>
 
-<div id="home" class="screen active-screen">
-    <div class="welcome-card">
-        <h1>حياكم الله بموقعكم 🇰🇼</h1>
-        <p>كل المناهج وبنوك الأسئلة بمكان واحد</p>
-        <button class="btn" style="background:var(--primary); color:white; width:200px" onclick="showScreen('grades')">دخول المكتبة</button>
-    </div>
+<div class="container">
+
+<!-- القائمة -->
+<div class="sidebar">
+    <h3>القائمة الرئيسية</h3>
+    <ul>
+        <li onclick="showSection('primary')">المرحلة الابتدائية</li>
+        <li onclick="showSection('middle')">المرحلة المتوسطة</li>
+        <li onclick="showSection('secondary')">المرحلة الثانوية</li>
+        <li onclick="showSection('banks')">بنوك الأسئلة</li>
+        <li onclick="showSection('books')">الكتب الجديدة</li>
+    </ul>
 </div>
 
-<div id="grades" class="screen">
-    <h3 style="text-align:right">اختر المرحلة الدراسية:</h3>
-    <div class="grid">
-        <button class="btn" onclick="showSemester('الأول', '1')">1</button>
-        <button class="btn" onclick="showSemester('الثاني', '2')">2</button>
-        <button class="btn" onclick="showSemester('الثالث', '3')">3</button>
-        <button class="btn" onclick="showSemester('الرابع', '4')">4</button>
-        <button class="btn" onclick="showSemester('الخامس', '5')">5</button>
-        <button class="btn" onclick="showSemester('السادس', '6')">6</button>
-        <button class="btn" onclick="showSemester('السابع', '7')">7</button>
-        <button class="btn" onclick="showSemester('الثامن', '8')">8</button>
-        <button class="btn" onclick="showSemester('التاسع', '9')">9</button>
-        <button class="btn" onclick="showSemester('العاشر', '10')">10</button>
-        <button class="btn" onclick="showSemester('11', '11')">11</button>
-        <button class="btn" onclick="showSemester('12', '12')">12</button>
-    </div>
-    <div class="grid">
-        <button class="btn btn-gold" onclick="openExternal('https://www.kwedufiles.com/qbank', 'بنوك الأسئلة المحلولة')">📝 بنوك الأسئلة المحلولة</button>
-    </div>
+<!-- المحتوى -->
+<div class="content">
+
+<div class="welcome">
+👋 أهلاً وسهلاً بك في موقع المناهج الكويتية الرسمي غير التابع للوزارة  
+نتمنى لك التوفيق والنجاح 🌟
 </div>
 
-<div id="semesters" class="screen">
-    <h2 id="gradeTitle"></h2>
-    <div class="grid">
-        <button class="btn" onclick="openBook('1')">الفصل الأول</button>
-        <button class="btn" onclick="openBook('2')">الفصل الثاني</button>
-    </div>
-    <button class="back-btn" onclick="showScreen('grades')">رجوع</button>
+<div id="sectionContent">
+
+<div class="card">
+<h2>اختر من القائمة لعرض المحتوى</h2>
+<p>جميع الكتب المعروضة هي النسخ الجديدة المحدثة للعام الدراسي 2025 / 2026</p>
 </div>
 
-<div id="viewer">
-    <div class="viewer-bar">
-        <span id="viewTitle">جاري التحميل...</span>
-        <button class="back-btn" onclick="closeViewer()">❌ إغلاق والرجوع لموقعي</button>
-    </div>
-    <iframe id="mainFrame" src=""></iframe>
 </div>
 
-<footer>
-    <p>جميع الحقوق محفوظة &copy; 2026 - بوابة المناهج الكويتية</p>
-</footer>
+</div>
+</div>
 
 <script>
-    let selID = "";
-    let selName = "";
 
-    function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
-    function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+function showSection(section){
 
-    function showScreen(id) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
-        document.getElementById(id).classList.add('active-screen');
-        closeNav();
-    }
+let content = document.getElementById("sectionContent");
 
-    function showSemester(name, id) {
-        selID = id; selName = name;
-        document.getElementById('gradeTitle').innerText = "منهج الصف " + name;
-        showScreen('semesters');
-    }
+if(section === "primary"){
+content.innerHTML = `
+<div class="card">
+<h2>📘 المرحلة الابتدائية</h2>
+<p>الصف الأول - الثاني - الثالث - الرابع - الخامس</p>
+<button>عرض الكتب الجديدة</button>
+</div>`;
+}
 
-    function openBook(sem) {
-        let url = "https://www.kwedufiles.com/" + selID;
-        openExternal(url, "منهج " + selName + " - الفصل " + sem);
-    }
+if(section === "middle"){
+content.innerHTML = `
+<div class="card">
+<h2>📗 المرحلة المتوسطة</h2>
+<p>الصف السادس - السابع - الثامن - التاسع</p>
+<button>عرض الكتب الجديدة</button>
+</div>`;
+}
 
-    function openExternal(url, title) {
-        document.getElementById('viewTitle').innerText = title;
-        document.getElementById('mainFrame').src = url;
-        document.getElementById('viewer').style.display = "flex";
-        closeNav();
-    }
+if(section === "secondary"){
+content.innerHTML = `
+<div class="card">
+<h2>📕 المرحلة الثانوية</h2>
+<p>الصف العاشر - الحادي عشر - الثاني عشر</p>
+<button>عرض الكتب الجديدة</button>
+</div>`;
+}
 
-    function closeViewer() {
-        document.getElementById('viewer').style.display = "none";
-        document.getElementById('mainFrame').src = "";
-    }
+if(section === "banks"){
+content.innerHTML = `
+<div class="card">
+<h2>📝 بنوك الأسئلة</h2>
+<p>نماذج اختبارات + مراجعات نهائية + أسئلة محلولة</p>
+<button>تحميل بنك الأسئلة</button>
+</div>`;
+}
+
+if(section === "books"){
+content.innerHTML = `
+<div class="card">
+<h2>📚 الكتب التعليمية الجديدة 2025-2026</h2>
+<p>جميع الكتب بصيغة PDF ومحدثة حسب المنهج الكويتي الجديد</p>
+<button>تحميل الكتب</button>
+</div>`;
+}
+
+}
+
 </script>
 
 </body>
